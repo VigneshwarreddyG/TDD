@@ -33,30 +33,15 @@ jobs:
           pkg-manager: pip
           # app-dir: ~/project/package-directory/  # If your requirements.txt isn't in the root directory.
           # pip-dependency-file: test-requirements.txt  # if you have a different name for your requirements file, maybe one that combines your runtime and test requirements.
-      - checkout
-      - setup_remote_docker:
-          version: 19.03.13
       - run:
           name: Run tests
           # This assumes pytest is installed via the install-package step above
           command: pytest test.py
-      - run:
-          name: Authenticate with Docker Hub
-          command: echo "$DOCKERHUB_PASS" | docker login --username $DOCKERHUB_USERNAME --password-stdin
-      - run:
-          name: Authenticate with Docker Hub
-          command: echo "$DOCKERHUB_PASS" | docker login --username $DOCKERHUB_USERNAME --password-stdin
-      - run:
-          name: Push Docker Image to Docker Hub
-          command: docker push $DOCKERHUB_USERNAME/myapp:${CIRCLE_SHA1}
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
 workflows:
-    version: 2
-    build_and_deploy:
-        jobs:
-            - build_and_push:
-                filters:
-                    branches:
-                        only: main
+  sample: # This is the name of the workflow, feel free to change it to better match your workflow.
+    # Inside the workflow, you define the jobs you want to run.
+    jobs:
+      - build-and-test
