@@ -2,6 +2,7 @@ FROM python:3.8-slim
 # Set working directory
 WORKDIR /
 # Copy
-COPY test_sparse_recommender.py .
+COPY sparse_recommender.py .
+COPY test.py .
 # run
-CMD [ "pytest", "./test_sparse_recommender.py" 
+CMD [ "pytest", "./test.py" 
