@@ -33,7 +33,8 @@ workflows:
   version: 2
   build_and_deploy:
     jobs:
-      - build-and-test
+      - build-and-test:
           filters:
             branches:
               only: main
+
